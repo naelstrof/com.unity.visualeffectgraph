@@ -10,5 +10,4 @@ And it should work!-- with a couple of caveats:
 2. Camera's while playing need to be tagged with "MainCamera"
 3. Finally, the `Camera` portion of the `Collide with Depth` node should be set to worldspace (L->W). This is included in the screenshot above but is stupidly easy to miss.
 
-To install this fork, simply add `"com.unity.visualeffectgraph": "https://github.com/naelstrof/com.unity.visualeffectgraph.git#7.3.1"` to your manifest (replacing the original).
-And don't worry about the 7.3.1, it's definitely the 7.5.1 branch.
+To install this fork, simply add `"com.unity.visualeffectgraph": "https://github.com/naelstrof/com.unity.visualeffectgraph.git#7.5.3-cwdb-urp"` to your manifest (replacing the original).
