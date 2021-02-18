@@ -155,7 +155,7 @@ namespace UnityEditor.VFX
         }
 
         public override VFXExpressionOperation operation { get { return VFXExpressionOperation.GetBufferFromMainCamera; }}
-        sealed protected override VFXExpression Evaluate(VFXExpression[] constParents) { return VFXValue.Constant<Texture2DArray>(null); }
+        sealed protected override VFXExpression Evaluate(VFXExpression[] constParents) { return VFXValue.Constant<Texture2D>(null); }
 
         protected override VFXExpression Reduce(VFXExpression[] reducedParents)
         {
