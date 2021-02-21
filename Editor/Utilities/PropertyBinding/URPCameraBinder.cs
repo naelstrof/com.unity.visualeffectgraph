@@ -78,8 +78,7 @@ namespace UnityEngine.VFX.Utility {
         /// <param name="component">Component to be tested.</param>
         /// <returns>True if the Visual Effect and the configuration of the binder are valid to perform the binding.</returns>
         public override bool IsValid(VisualEffect component) {
-            return AdditionalData != null
-                && DepthTexture != null
+            return DepthTexture != null
                 && camera != null
                 && component.HasVector3(m_Position)
                 && component.HasVector3(m_Angles)
