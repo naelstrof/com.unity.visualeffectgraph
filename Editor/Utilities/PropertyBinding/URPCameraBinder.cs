@@ -97,9 +97,9 @@ namespace UnityEngine.VFX.Utility {
         /// </summary>
         /// <param name="component">Component to update.</param>
         public override void UpdateBinding(VisualEffect component) {
-            component.SetVector3(m_Position, AdditionalData.transform.position);
-            component.SetVector3(m_Angles, AdditionalData.transform.eulerAngles);
-            component.SetVector3(m_Scale, AdditionalData.transform.lossyScale);
+            component.SetVector3(m_Position, camera.transform.position);
+            component.SetVector3(m_Angles, camera.transform.eulerAngles);
+            component.SetVector3(m_Scale, camera.transform.lossyScale);
 
             // While field of View is set in degrees for the camera, it is expected in radians in VFX
             component.SetFloat(m_FieldOfView, Mathf.Deg2Rad * camera.fieldOfView);
