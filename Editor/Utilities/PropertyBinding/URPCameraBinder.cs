@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.VFX;
 
 namespace UnityEngine.VFX.Utility {
@@ -14,8 +13,7 @@ namespace UnityEngine.VFX.Utility {
         /// <summary>
         /// Camera HDRP additional data.
         /// </summary>
-        public UniversalAdditionalCameraData AdditionalData;
-        Camera m_Camera;
+        public Camera camera;
         public RenderTexture DepthTexture;
 
         [VFXPropertyBinding("UnityEditor.VFX.CameraType"), SerializeField]
@@ -42,11 +40,6 @@ namespace UnityEngine.VFX.Utility {
         }
 
         void UpdateSubProperties() {
-            // Get Camera component from HDRP additional data
-            if (AdditionalData != null) {
-                m_Camera = AdditionalData.GetComponent<Camera>();
-            }
-
             // Update VFX Sub Properties
             m_Position = CameraProperty + "_transform_position";
             m_Angles = CameraProperty + "_transform_angles";
@@ -87,7 +80,7 @@ namespace UnityEngine.VFX.Utility {
         public override bool IsValid(VisualEffect component) {
             return AdditionalData != null
                 && DepthTexture != null
-                && m_Camera != null
+                && camera != null
                 && component.HasVector3(m_Position)
                 && component.HasVector3(m_Angles)
                 && component.HasVector3(m_Scale)
@@ -110,12 +103,12 @@ namespace UnityEngine.VFX.Utility {
             component.SetVector3(m_Scale, AdditionalData.transform.lossyScale);
 
             // While field of View is set in degrees for the camera, it is expected in radians in VFX
-            component.SetFloat(m_FieldOfView, Mathf.Deg2Rad * m_Camera.fieldOfView);
-            component.SetFloat(m_NearPlane, m_Camera.nearClipPlane);
-            component.SetFloat(m_FarPlane, m_Camera.farClipPlane);
+            component.SetFloat(m_FieldOfView, Mathf.Deg2Rad * camera.fieldOfView);
+            component.SetFloat(m_NearPlane, camera.nearClipPlane);
+            component.SetFloat(m_FarPlane, camera.farClipPlane);
 
-            component.SetFloat(m_AspectRatio, m_Camera.aspect);
-            component.SetVector2(m_Dimensions, new Vector2(m_Camera.pixelWidth, m_Camera.pixelHeight));
+            component.SetFloat(m_AspectRatio, camera.aspect);
+            component.SetVector2(m_Dimensions, new Vector2(camera.pixelWidth, camera.pixelHeight));
 
             component.SetTexture(m_DepthBuffer, DepthTexture);
         }
@@ -125,7 +118,7 @@ namespace UnityEngine.VFX.Utility {
         /// </summary>
         /// <returns>String containing the binder information.</returns>
         public override string ToString() {
-            return string.Format($"URP Camera : '{(AdditionalData == null ? "null" : AdditionalData.gameObject.name)}' -> {CameraProperty}");
+            return string.Format($"URP Camera : '{(camera == null ? "null" : camera.gameObject.name)}' -> {CameraProperty}");
         }
     }
 
