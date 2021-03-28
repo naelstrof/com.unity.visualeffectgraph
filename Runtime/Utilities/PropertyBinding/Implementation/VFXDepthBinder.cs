@@ -34,6 +34,9 @@ namespace UnityEngine.VFX.Utility
             if (depthTexture == null) {
                 depthTexture = Shader.GetGlobalTexture("_CameraDepthTexture");
             }
+            if (depthTexture == null) {
+                return;
+            }
             component.SetTexture((int)DepthBuffer, depthTexture);
         }
 
