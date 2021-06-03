@@ -235,7 +235,13 @@ namespace  UnityEditor.VFX.UI
             graphView.OnFocus();
         }
 
-        public bool autoCompile {get; set; }
+        public void OnVisualEffectComponentChanged(IEnumerable<VisualEffect> componentChanged)
+        {
+            if (graphView != null)
+                graphView.OnVisualEffectComponentChanged(componentChanged);
+        }
+
+        public bool autoCompile { get; set; }
 
         void Update()
         {
@@ -304,8 +310,7 @@ namespace  UnityEditor.VFX.UI
             if (graphView?.controller?.model?.visualEffectObject != null)
             {
                 graphView.checkoutButton.visible = true;
-                if (!AssetDatabase.IsOpenForEdit(graphView.controller.model.visualEffectObject,
-                    StatusQueryOptions.UseCachedIfPossible) && Provider.isActive && Provider.enabled)
+                if (!graphView.IsAssetEditable() && Provider.isActive && Provider.enabled)
                 {
                     graphView.checkoutButton.SetEnabled(true);
                 }
